@@ -1,0 +1,14 @@
+[
+    "Give the netlist of series RLC bandpass filter with a R=15Ohms resistor and a L=15mH inductor and a C=667nF capacitor",
+    "Given a R=15Ohms resistor, a L=15mH inductor and a C=667nF capacitor, calculate the cutoff frequency of series RLC bandpass filter",
+    "Design a series RLC bandpass filter with \\omega_0=10krad/s,currently I have a L=15mH inductor, tell me which capacitor value should I choose, the C is in nF units",
+    "Give the netlist of RL low pass filter with a R=1.5kOhms resistor and a L=9.375mH inductance",
+    "Given a R=1.5kOhms resistor and a L=9.375mH inductance, calculate the cutoff frequency of RL low pass filter",
+    "Design a low pass filter with \\omega_c=160krad/s , currently I have a R=1.5kOhms resistor, tell me which inductance value should I choose, the L is in mH units",
+    "Give the netlist of RC high pass filter with a R=1.5kOhms resistor and a C=66.7nF capacitor",
+    "Given a R=1.5kOhms resistor and a C=66.7nF capacitor, calculate the cutoff frequency of RC high pass filter",
+    "Design a RC high pass filter with \\omega_c=10krad/s , currently I have a R=1.5kOhms resistor, tell me which capacitor value should I choose, the C is in nF units",
+    "Give the netlist of RC low pass filter with a R=1.5kOhms resistor and a C=66.7nF capacitor",
+    "Given a R=1.5kOhms resistor and a C=66.7nF capacitor, calculate the cutoff frequency of RC low pass filter",
+    "Design a RC low pass filter with \\omega_c=10krad/s , currently I have a R=1.5kOhms resistor, tell me which capacitor value should I choose, the C is in nF units"
+]

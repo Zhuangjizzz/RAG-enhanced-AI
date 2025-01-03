@@ -1,0 +1,17 @@
+1. Circuit Structure:
+An RL high-pass filter circuit is presented in the netlist, principally comprising a resistor ($R$) and an inductor ($L$).
+The resistor $R$ is interconnected at one end to the voltage source and at the other end to the inductor $L$ at a junction point.
+The inductor $L$ shares one end with $R$ at the junction point, while its other terminal is grounded to provide the circuit's return path.
+The point of conjunction of $R$ and $L$ is considered as the output node, where the output signal is the voltage across $L$, thus reflecting the filtered output signal.
+
+2. Circuit Role:
+This circuit is designed to allow high-frequency signals to pass while attenuating low-frequency signals.
+
+3. Transfer Function:
+The transfer function of this circuit can be expressed as $H(s) = s/(\omega_c + s)$, where $s = j \omega$, $\omega_c= 2\pi f$ represents the frequency, $j$ signifies the imaginary unit, and $\omega_c$ denotes the cut-off frequency.
+
+4. Performance Metric(s):
+A critical performance metric for this circuit is the cutoff frequency $f_c$. 
+The computed cutoff frequency is $\omega_c = R/L$, or $f_c =  R/(2*\pi*L)$.
+The cutoff frequency is where the output signal amplitude is around 0.707 of the input signal amplitude.
+Meaning, the filter begins propagating high-frequency signals at the frequency $f_c$.

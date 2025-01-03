@@ -1,0 +1,5 @@
+Vin in 0 AC 1
+L in out {insert value of L}
+C in out {insert value of C}
+R out 0 {insert value of R}
+.END

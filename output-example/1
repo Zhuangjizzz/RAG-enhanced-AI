@@ -1,0 +1,5 @@
+Vin in 0 AC 1
+R in out 1.5k
+C out 0 5.2n
+L out 0 7m
+.END

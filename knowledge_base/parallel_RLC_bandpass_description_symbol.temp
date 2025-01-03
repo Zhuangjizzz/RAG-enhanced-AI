@@ -1,0 +1,20 @@
+1. Circuit Structure:
+This netlist represents a parallel RLC band-pass filter circuit, mainly composed of a resistor ($R$), an inductor ($L$), and a capacitor ($C$).
+The resistor $R$, is linked at one end to the voltage source ('in' in the netlist) and at the other to the junction point ('out' in the netlist).
+The inductor $L$ and the capacitor $C$, are connected in parallel to each other. Both are linked to the junction point shared with the resistor $R$ at one end (node 'out') and are grounded at the other end (node '0'), providing the circuit's return path.
+The output signal is thus the voltage across the LC-pair (in parallel), reflecting the filtered output signal.
+
+2. Circuit Role:
+Designed as a band-pass filter, this circuit allows a specific frequency range to propagate while damping frequencies outside this band. 
+This filter proves useful in scenarios where a particular frequency band needs to be isolated from a wider signal.
+
+3. Transfer Function:
+The transfer function of the series RLC circuit can be expressed as $H(s) = (\beta s) / ((s^2) + \beta s + (\omega_0)^2)$, where $s = j \omega$ and $\omega$ is the frequency. 
+Besides, $\beta$ denotes the bandwith and $\omega_0$ denotes the center frequency. 
+
+4. Performance Metric(s):
+Key performance metrics for this circuit include the center frequency $\omega_0$, the bandwidth $\beta$, two cutoff frequencies $\omega_c1$ and $\omega_c2$, and the quality factor $Q$.
+4.1 The center frequency is given by $\omega_0 = 1/\sqrt(LC)$. In the context of a band-pass filter, $\omega_0$ signifies the frequency at which the output signal's amplitude is at its peak, signifying maximum signal propagation at this frequency.
+4.2 The bandwidth is given by $\beta = 1/RC$. It represents the range of frequencies that will pass through the filter with a relative attenuation less than -3dB. Essentially, the bandwidth denotes the width of the frequency band that the filter allows to pass, with frequencies outside this band being significantly attenuated.
+4.3 The cut-off frequencies are derived from the equations $\omega_0 = \sqrt(\omega_c1 \omega_c2)$ and $\beta = \omega_c2 - \omega_c1$. Here, $\omega_c1$ and $\omega_c2$ serve as the boundaries of the frequency band. Frequencies outside this band will be significantly attenuated by the filter.
+4.4 The quality factor is given by $Q = (\omega_0)/(\beta)$. The quality factor is a measure of how "sharp" the peak is in the frequency response; a higher Q indicates a sharper peak and a narrower passband.

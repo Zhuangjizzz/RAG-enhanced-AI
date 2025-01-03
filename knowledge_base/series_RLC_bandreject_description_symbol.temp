@@ -1,0 +1,21 @@
+1. Circuit Structure:
+The provided netlist represents a series RLC band-reject (notch) filter circuit, consisting of a resistor ($R$), an inductor ($L$), and a capacitor ($C$). 
+The resistor $R$ is linked directly to the input voltage source ('in' in the netlist). 
+One end of the inductor $L$ is connected to $R$ at a node ('out' in the netlist). The other end of $L$ is connected to the capacitor $C$ at a node ('mid' in the netlist). 
+The capacitor $C$ shares one terminal with $L$ (node 'mid') and is grounded at the other (node '0'), forming a return path for the circuit. 
+The voltage across the LC pair (in series) represents the filtered output signal of the circuit.
+
+2. Circuit Role:
+This circuit operates as a band-reject filter, attenuating frequencies within a specific range and allowing others to pass with minimal attenuation. 
+The filter is extremely useful in applications where one needs to suppress signals of certain frequencies, for instance, to eliminate noise or interference in specific frequency bands.
+
+3. Transfer Function:
+The transfer function of the series RLC circuit can be expressed as $H(s) = (s^2 + (\omega_0)^2) / (s^2 + \beta s + (\omega_0)^2)$, where $s = j \omega$ and $\omega$ is the frequency. 
+Besides, $\beta$ denotes the bandwith and $\omega_0$ denotes the center frequency. 
+
+4. Performance Metric(s):
+Key performance metrics for this circuit include the center frequency $\omega_0$, the bandwidth $\beta$, two cutoff frequencies $\omega_c1$ and $\omega_c2$, and the quality factor $Q$.
+4.1 The center frequency is given by $\omega_0 = 1/\sqrt(LC)$. For a band-reject filter, $\omega_0$ indicates the frequency at which the output signal is at its minimum, i.e., the frequency which is rejected or attenuated the most.
+4.2 The bandwidth is given by $\beta = R/L$, which indicates the range of frequencies that are significantly attenuated by the filter. Frequencies within this band are rejected, while those outside are allowed to pass through.
+4.3 The cut-off frequencies are derived from the equations $\omega_0 = \sqrt(\omega_c1 \omega_c2)$ and $\beta = \omega_c2 - \omega_c1$. Here, $\omega_c1$ and $\omega_c2$, at which the output power reduces to half of the input power, resulting in a -3 dB power loss. These frequencies mark the boundaries of the reject band.
+4.4 The quality factor, $Q = (\omega_0)/(\beta) = {omega_0}/{beta} = {Q}$, is a measure of the 'sharpness' of the notch in the frequency response. A higher Q indicates a sharper notch and narrower reject band.
