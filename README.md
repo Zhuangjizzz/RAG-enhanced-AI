@@ -74,9 +74,9 @@ expressions that are available for the program executing in the Python REPL.
 - `src` - programs
 
 ## Requirements
-run `conda create -n llm4analog python=3.10` to create a new environment
-run `conda activate llm4analog` to activate the environment
-run `pip install -r requirements.txt` to install the required packages
+- run `conda create -n llm4analog python=3.10` to create a new environment
+- run `conda activate llm4analog` to activate the environment
+- run `pip install -r requirements.txt` to install the required packages
 
 ## How to Run?
 
