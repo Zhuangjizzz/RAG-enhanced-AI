@@ -5,8 +5,6 @@ import os
 from zhipuai import ZhipuAI
 
 import sys
-sys.path.append("/home/jzhuang/Desktop/RAG-enhanced-AI/Hackathon-LLM4Analog")
-print(sys.path)
 from src.solve import solve
 from src.knowledge_base import load_knowledge_base
 from src.utils import load_questions, output_path
