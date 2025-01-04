@@ -51,8 +51,8 @@ output：dict
 
 This project uses the GLM-4-0520 model provided by Zhipu AI, with the model's API interface already included in the code. The question.json file contains the test questions, and the output files for each question are located in the output folder.
 ## Detailed Design and Functionality
-### 设计流程图
-![alt text](img/framework.png)
+### overall framework
+![framework](img/framework.png)
 ### RAG Usage
 It uses a custom-made knowledge indexer for knowledge base searching!
 
