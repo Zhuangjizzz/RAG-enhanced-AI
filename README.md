@@ -53,7 +53,12 @@ This project uses the GLM-4-0520 model provided by Zhipu AI, with the model's AP
 ## Detailed Design and Functionality
 ### overall framework
 ![framework](img/framework.png)
+
+### Agents Overflow
+The input question is first classified into three agents through a classification agent: netlist generation, cutoff frequency calculation, and circuit parameter calculation. The corresponding agent will use lanchain's RAG tool, extracting the knowledge in the knowledge base then return to the prompt, thus enhancing the agent's ability to answer the question. The agent will also use the Python REPL tool to calculate the value of cutoff frequency and circuit parameters if necessary.
+
 ### RAG Usage
+
 It uses a custom-made knowledge indexer for knowledge base searching!
 
 For cutoff frequency and circuit parameter calculation, it uses RAG to help the prompt.
@@ -61,11 +66,52 @@ For cutoff frequency and circuit parameter calculation, it uses RAG to help the 
 This RAG does not use semantic things such as TF-IDF, etc.
 Instead, it just reads the circuit netlists and descriptions in a bare-metal way, and divide into
 parts that are possibly useful for our tasks.
+
 ### Tool Usage
+
 It uses Python REPL if the question requires calculation.
 
 In our program, the LLM does not calculate values. Instead, its output information contains
 expressions that are available for the program executing in the Python REPL.
+
+The detailed code is in `src/solve_param.py`.The following is the code snippet.
+
+```python
+def solve_param(
+    question: str,
+    circuit_type: int,
+    ai_client: ZhipuAI,
+    knowledge_base: dict,
+    messages: list,
+):
+    messages = push_message(
+        circuit_param_calc_prompt.format(
+            knowledge_base[circuit_type]["performance"]
+        ),
+        messages,
+    )
+    answer, messages = get_response(ai_client, messages)
+
+    params = json.loads(cleanup_code(answer))
+
+    repl = PythonREPL()
+    output_dict = {}
+    repl.run("from math import *")
+    for key in params["conditions"]:
+        expr = params["conditions"][key]
+        if isinstance(expr, str):
+            expr = expr.replace("^", "**")
+        repl.run(f"{key} = {expr}")
+    for key in params["find"]:
+        expr = params["find"][key]
+        if isinstance(expr, str):
+            expr = expr.replace("^", "**")
+        ans = repl.run(f"print({expr})").strip()
+        output_dict[key] = ans
+
+    output = json.dumps(output_dict, indent=4)
+    return output, messages
+```
 
 ## Directory Structure
 - `question.json` - the questions to be answered
@@ -86,3 +132,53 @@ conda activate llm4analog
 python src/main.py
 ```
 You can also see the dialogues on the screen.
+
+## In/Output Example
+### Input
+```
+[
+"Give the netlist of RL low pass filter with a R=1.5kOhms resistor and a L=9.375mH inductance",
+]
+```
+### Output
+```
+******************************************************
+QUESTION 1: Give the netlist of RL low pass filter with a R=1.5kOhms resistor and a L=9.375mH inductance
+******************************************************
+// Classification agent
+
+USER: Which type of question is the following question? Return only the answer's alphabetical index. The question type can only be one of the following.
+A. Netlist generation
+B. Cutoff frequency calculation
+C. Component parameter calculation
+
+Give the netlist of RL low pass filter with a R=1.5kOhms resistor and a L=9.375mH inductance
+
+ASSISTANT: A
+
+USER: Which type of circuit is discussed in the above question? Return only the answer's numerical index. The circuit type can only be one of the following.
+0. RC lowpass
+1. RC highpass
+2. RL lowpass
+3. RL highpass
+4. series RLC bandpass
+5. parallel RLC bandpass
+6. series RLC bandreject
+7. parallel RLC bandreject
+
+ASSISTANT: 2
+
+// Netlist generation agent
+
+USER: What are the circuit parameters in the question? Return the answer in the JSON format. The circuit parameters can be two or three of "R", "L", and "C" depending on the circuit type. Do not return anything other than the JSON. The values must be in a string with SI unit prefixes if necessary. For example, an RC circuit with R=1.5kOhm and C=22.5uF should be represented as {"R": "1.5k", "C": "22.5u"}.
+
+ASSISTANT: {"R": "1.5k", "L": "9.375m"}
+
+// Netlist output
+
+OUTPUT: Vin in 0 AC 1
+L in out 9.375m
+R out 0 1.5k
+.END
+```
+And the final output will be saved in the `output` directory.
