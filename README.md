@@ -181,4 +181,4 @@ L in out 9.375m
 R out 0 1.5k
 .END
 ```
-And the final output will be saved in the `output` directory.
+The final output will be saved in the `output` directory.
